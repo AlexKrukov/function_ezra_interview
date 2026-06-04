@@ -1,0 +1,64 @@
+*** Question 1 ***
+
+** Part 1 **
+
+* Note *
+Task required a creation of 15 test cases and I created a longer list to cover more functionality. And in reality some of the test cases from my list could be verified within smaller amount of end-to-end tests. Entire booking flow is essential for the user so I would consider all screens as important: Review your plan, Schedule your scan and Reserve your appointment.
+
+* Test cases (ordered from most to least important):
+
+* TOP 3 CASES !!! *
+- Verify user under 35 y.o. should be able to successfully book an MRI Scan without add-ons with a valid credit card (end-to-end flow)
+- Verify user over 35 y.o. should be able to successfully book an MRI Scan with passed Heart CT Scan add-on questionnaire with a valid credit card and create a Link account (end-to-end flow)
+- Verify user over 35 y.o. should be able to successfully book an MRI Scan with failed Heart CT Scan add-on questionnaire with a valid bank account (end-to-end flow)
+
+- User under 35 years old should not be able to book Heart CT Scan OR Lungs CT Scan as a primary scan
+- User under 35 years old should not be able to select a Heart CT Scan OR Lungs CT Scan add-ons
+
+- Verify if Questionnaire is displayed after selecting Heart CT Scan
+- Verify if Heart CT Scan Questionnaire pass when answering "No" to all questions
+- Verify if Heart CT Scan Questionnaire doesn't pass when answering "Yes" at least to one question
+- Verify if Heart CT Scan add-on Questionnaire doesn't pass when answering "Yes" at least to one question but still allows to Continue
+
+- Verify validation errors on all fields in "Card" section during check-out
+- Verify all other options during check-out under "Bank" selection
+- Verify user can check-out via Affirm
+- Verify user can check-out with Klarna
+- Verify user can check-out with valid Promo Code
+- Verify a valid error message is displayed during check-out when entering invalid Promo Code
+
+- Verify if a common list of states is present for 2 selected Scans with different state lists
+- Verify if "Find closes centers to me" button works as expected
+- Verify that correct facilities are displayed when selecting specific state
+- Verify pressing "View on map" button displayes facility location on Google Maps
+- Verify that correct modal window is displayed when selecting facility with "Available instead" label
+- Verify "Additional Scheduling Info" and Calendar sections appear after selecting a facility
+- Verify time slots appear after selecting appointment date
+- Verify that "Please select 3 times you are available" modal window appears after selecting 1st time slot
+
+- Verify user can begin medical questionnaire after successfull check-out
+- Verify user can successfully cancel scheduled scan appointment
+
+- FAQ page opens in a new tab by pressing "here" button under "Review your Scan"
+- Pressing "What's Included" button on a scan card should open associated modal window
+- Pressing "What's Not Included" button on a scan card should open associated modal window
+- Pressing "Learn More" button on a scan card should open associated modal window
+
+** Part 2 **
+
+My top 3 end-to-end test cases are importnat because I covered multiple key points in a booking flow such as:
+
+- Verifying if user under 35 y.o. cannot book Heart CT Scan OR Lungs CT Scan as a primary scan and as an add-on
+- Verifying that Heart CT Scan Questionnaire appears and works correctly to prevent user with specific conditions from booking a Heart CT Scan
+- Verifying if user can book an MRI scan for any valid age
+- Verifying that facility selection works as expected
+- Verifying that date/time selection works as expected
+- Verifying that user is able to check-out with valid credit card or a bank account to make sure booking can be complete
+
+
+
+
+
+
+
+
