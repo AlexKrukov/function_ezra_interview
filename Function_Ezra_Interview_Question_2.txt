@@ -1,0 +1,87 @@
+*** Question 2 ***
+
+** Part 1 **
+
+Integration test case to verify if User 1 is not able to access User's 2 medical data.
+
+Pre-requisites:
+
+- Create User 1
+- Create User 2
+
+Test steps:
+
+- Login as User 1
+- Book MRI scan
+- Open browser dev tools -> Network tab
+- Start medical questionnaire
+- In Dev Tools identify POST request to https://stage-api.ezra.com/diagnostics/api/medicaldata/forms/mq/submissions/{userId}/{encounterId}
+- Save response from the call which is a Submission ID
+- Login as User 2
+- in Dev Tools identify POST request to https://stage-api.ezra.com/individuals/member/connect/token
+- Save "access_token" from its response
+- Using saved User's 2 "access_token" attempt to make a GET request to https://stage-api.ezra.com/diagnostics/api/medicaldata/forms/mq/submissions/{submissionId}/data and provide User's 1 submissionId as a parameter
+
+Expected behavior:
+
+403 Forbidden response code should be returned with the following response body:
+
+{
+    "message": "Authentication failed",
+    "path": "/api/medicaldata/forms/mq/submissions/{submissionId}/data"
+}
+
+
+** Part 2 **
+
+1) POST request to https://stage-api.ezra.com/individuals/member/connect/token providing User 1 login data
+
+2) Save "access_token"
+
+3) POST request to https://stage-api.ezra.com/diagnostics/api/medicaldata/forms/mq/submissions/d5876541-39cc-477c-8f40-4981c37e5bdb/4382ea10-2bec-4dfb-9559-4f0c78e921a6 providing "access_token" for User 1
+
+4) Save response body which is "8000" when I tested
+
+5) POST request to https://stage-api.ezra.com/individuals/member/connect/token providing User 2 login data
+
+6) Save "access_token"
+
+7) GET request to https://stage-api.ezra.com/diagnostics/api/medicaldata/forms/mq/submissions/8000/data providing User's 2 "access_token" as a Bearer auth token
+
+8) 403 Forbidden is returned
+
+
+** Part 3 **
+
+1) First I would examine all security requirements for all available endpoints such as:
+
+- Users can only access their own medical data
+- Users cannot access other users data
+- Authentication is required for the request
+- If there is a timeout for the auth tokens
+- Sensitive data is never returned to unauthorized users
+- If there is any role-based permissions
+
+2) Second I would group endpoints from common areas together so verification can be perfomed as one unit as following:
+
+- Create multiple users
+- Generate data for User 1
+- Attempt accessing User 1 data using User 2 credentials
+- Verify the API returns 403 Forbidden or 404 Not Found
+- Confirm no sensitive information is exposed
+
+3) I Would also classify all available endpoints by risk level such as High, Medium, Low and high-risk endpoints would receive the most extensive security coverage
+
+4) All the security related API tests would run automatically every time in CI/CD to prevent any high-risk bugs to be released
+
+Advantages of this approach:
+
+- This model scales when more and more endpoints are being added
+- Constant security validation
+- No manual testing effort
+
+Costs of the approach:
+
+- Framework developemnt would requiry more effort to build a complex verification solustion like that and group endpoints together to make initial testing faster and more reliable
+- A lot of test data needs to be prepared upfront before each run but later this would make process faster as tests will have the data ready
+
