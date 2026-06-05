@@ -33,11 +33,13 @@ export class SchedulePage {
     await this.calendarDay(6, 27).scrollIntoViewIfNeeded();
     await expect(this.calendarDay(6, 27)).toBeVisible({ timeout: 10000 });
     await this.calendarDay(6, 27).click();
+    await expect(this.timeSlot(1)).toBeVisible();
     await this.timeSlot(1).click();
     await this.understandButton().click();
+    await expect(this.timeSlot(2)).toBeVisible();
     await this.timeSlot(2).click();
+    await expect(this.timeSlot(3)).toBeVisible();
     await this.timeSlot(3).click();
-
     await this.continueButton().click();
   }
 }
