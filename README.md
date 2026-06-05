@@ -53,3 +53,9 @@ This flow was chosen because it represents the **critical business path**:
 - Add CI pipeline (GitHub Actions)
 - Add reporting (Allure / HTML report)
 - Add negative test coverage (invalid payment, missing slots, etc.)
+
+---
+
+## Test results
+
+<img width="857" height="93" alt="Screenshot 2026-06-05 at 2 08 47 PM" src="https://github.com/user-attachments/assets/471912a1-e91c-4199-8724-c4c2f5a694c6" />
